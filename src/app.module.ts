@@ -3,9 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrdersModule } from './orders/orders.module';
 import { DatabaseModule } from './database/database.module';
+import { ProjectsModule } from './projects/projects.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [OrdersModule, DatabaseModule],
+  imports: [ ConfigModule.forRoot(), OrdersModule, DatabaseModule, ProjectsModule],
   controllers: [AppController],
   providers: [AppService],
 })
