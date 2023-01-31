@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { Project } from "src/projects/projects.model";
+import { Status } from "src/status/status.model";
 import { Order } from '../orders/order.model';
 
 export const databaseProviders = [
@@ -14,7 +15,7 @@ export const databaseProviders = [
                 password: process.env.DATABASE_PASSWORD,
                 database: process.env.DATABASE_NAME,
             });
-            sequelize.addModels([Project, Order])
+            sequelize.addModels([Project, Order, Status])
             await sequelize.sync()
             return sequelize
         },
