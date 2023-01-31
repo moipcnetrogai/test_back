@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
+import { Project } from "src/projects/projects.model";
 import { Order } from '../orders/order.model';
 
 export const databaseProviders = [
@@ -7,13 +8,13 @@ export const databaseProviders = [
         useFactory: async () => {
             const sequelize = new Sequelize({
                 dialect: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'rkis3_user',
-                password: '123',
-                database: 'smevproxy',
+                host: process.env.DATABASE_HOST,
+                port: parseInt(process.env.DATABASE_PORT),
+                username: process.env.DATABASE_USERNAME,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE_NAME,
             });
-            sequelize.addModels([Order])
+            sequelize.addModels([Project, Order])
             await sequelize.sync()
             return sequelize
         },
