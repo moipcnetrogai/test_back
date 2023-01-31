@@ -1,4 +1,5 @@
-import { AllowNull, AutoIncrement, Column, Model, NotNull, PrimaryKey, Table } from 'sequelize-typescript';
+import { AllowNull, AutoIncrement, BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { Project } from 'src/projects/projects.model';
 
 @Table
 export class Order extends Model {
@@ -6,12 +7,19 @@ export class Order extends Model {
     @PrimaryKey
     @AutoIncrement
     @Column
-    id: number;
+    id!: number;
 
     @AllowNull(false)
     @Column
     name: string;
 
     @Column
-    description: string;
+    description?: string;
+
+    @ForeignKey(() => Project)
+    @Column
+    projectId:number;
+
+    @BelongsTo(() => Project)
+    project: Project;
 }

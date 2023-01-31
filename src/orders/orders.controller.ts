@@ -16,19 +16,28 @@ export class OrdersController {
         return this.ordersService.create(createOrderDto)
     }
 
-    /*@Get(':id')
+    @Get(':id')
+    @HttpCode(HttpStatus.ACCEPTED)
     getOne(@Param('id') id:string){
-        return this.ordersService.getById(id)
+        return this.ordersService.findOne(id)
+    }
+
+    @Get()
+    @HttpCode(HttpStatus.ACCEPTED)
+    getUnAttached(){
+        return this.ordersService.findUnAttached()
     }
 
     @Put(':id')
+    @HttpCode(HttpStatus.OK)
     @Header('content-type', 'application/json')
     update(@Body() updateOrderDto: UpdateOrderDto, @Param('id') id:string){
-        return 'update ' + id + ' ' + updateOrderDto
+        return this.ordersService.update(id, updateOrderDto)
     }
     
     @Delete(':id')
+    @HttpCode(HttpStatus.OK)
     delete(@Param('id') id:string){
-        return 'remove ' + id
-    }*/
+        return this.ordersService.remove(id)
+    }
 }
