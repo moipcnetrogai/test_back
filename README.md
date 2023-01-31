@@ -32,6 +32,16 @@
 $ npm install
 ```
 
+## DbConfig
+Insert actual values of dbconnection in .env file
+```bash
+DATABASE_HOST =
+DATABASE_PORT =
+DATABASE_USERNAME =
+DATABASE_PASSWORD =
+DATABASE_NAME =
+```
+
 ## Running the app
 
 ```bash
@@ -45,7 +55,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Test (not working yet)
 
 ```bash
 # unit tests
@@ -57,7 +67,6 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

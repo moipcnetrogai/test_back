@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { throws } from 'assert';
 import { Order } from 'src/orders/order.model';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
