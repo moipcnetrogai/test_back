@@ -3,7 +3,7 @@ import { UpdateOrderDto } from 'src/orders/dto/update-order.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectsService } from './projects.service';
 
-@Controller('projects')
+@Controller('project')
 export class ProjectsController {
     constructor(private readonly projectsService: ProjectsService){
     }

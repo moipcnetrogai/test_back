@@ -1,9 +1,10 @@
 import { Body, Controller,Delete,Get, Header, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { StatusDto } from './dto/status.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
 
-@Controller('orders')
+@Controller('request')
 export class OrdersController {
 
     constructor (private readonly ordersService: OrdersService) {
@@ -41,15 +42,27 @@ export class OrdersController {
         return this.ordersService.remove(id)
     }
 
-    @Put(':oid/bind/:pid')
+    @Post(':oid/bind/:pid')
     @HttpCode(HttpStatus.OK)
     bindOrderToProject(@Param('oid') orderId:string, @Param('pid') projectId:string){
         return this.ordersService.bind(orderId, projectId)
     }
 
-    @Put(':oid/unbind/:pid')
+    @Post(':oid/unbind/:pid')
     @HttpCode(HttpStatus.OK)
     onbindOrderAtProject(@Param('oid') orderId:string, @Param('pid') projectId:string){
         return this.ordersService.unbind(orderId, projectId)
+    }
+
+    @Post(':id/status/next')
+    @HttpCode(HttpStatus.OK)
+    nextStatus(@Param('id') orderId: string, @Body() statusDto: StatusDto){
+        return this.ordersService.changeStatus(orderId, statusDto)
+    }
+
+    @Post(':id/status/prev')
+    @HttpCode(HttpStatus.OK)
+    prevStatus(@Param('id') orderId: string, @Body() statusDto: StatusDto){
+        return this.ordersService.changeStatus(orderId, statusDto)
     }
 }

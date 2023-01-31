@@ -10,6 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       description: {
@@ -19,6 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       statusId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue: 1
       },

@@ -1,13 +1,17 @@
 import { Inject, Injectable } from "@nestjs/common";
+import { Status } from "src/status/status.model";
 import { CreateOrderDto } from "./dto/create-order.dto";
+import { StatusDto } from "./dto/status.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { Order } from "./order.model";
 
 @Injectable()
 export class OrdersService {
     constructor(
-        @Inject('ORDERS_REPOSITORY') private readonly ordersRepository: typeof Order
+        @Inject('ORDERS_REPOSITORY') private readonly ordersRepository: typeof Order,
+        @Inject('STATUSES_REPOSITORY') private readonly statusesRepository: typeof Status
     ) { }
+
 
     async create(orderDto: CreateOrderDto): Promise<Order> {
         return await this.ordersRepository.create<Order>(
@@ -28,6 +32,10 @@ export class OrdersService {
         return this.ordersRepository.findOne({
             where: {
                 id
+            },
+            include: {
+                model: Status,
+                as: 'status'
             }
         })
     }
@@ -53,7 +61,7 @@ export class OrdersService {
     async bind(orderId: string, projectId: string) {
         const orderToBind = this.ordersRepository.findOne({
             where: {
-                orderId
+                id: orderId
             }
         })
         return (await orderToBind).update({
@@ -64,11 +72,28 @@ export class OrdersService {
     async unbind(orderId: string, projectId: string) {
         const orderToUnbind = this.ordersRepository.findOne({
             where: {
-                orderId
+                id: orderId
             }
         })
         return (await orderToUnbind).update({
             projectId: null
         })
     }
+
+    async changeStatus(orderId: string, statusDto: StatusDto) {
+        const orderToChange = this.ordersRepository.findOne({
+            where: {
+                id: orderId
+            },
+            include: {
+                model: Status,
+                as: 'status'
+            }
+        })
+        return (await orderToChange).update({
+            statusId: statusDto.id
+        })
+
+    }
+
 }

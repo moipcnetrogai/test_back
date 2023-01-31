@@ -10,20 +10,23 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             code_name: {
+                allowNull: false,
                 type: Sequelize.STRING
             },
             name: {
+                allowNull: false,
                 type: Sequelize.STRING
             },
             step: {
+                allowNull: false,
                 type: Sequelize.STRING
             },
             createdAt: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.DATE
             },
             updatedAt: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.DATE
             }
         });
