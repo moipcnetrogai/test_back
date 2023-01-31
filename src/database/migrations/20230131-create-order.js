@@ -18,6 +18,10 @@ module.exports = {
       projectId: {
         type: Sequelize.INTEGER
       },
+      statusId: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

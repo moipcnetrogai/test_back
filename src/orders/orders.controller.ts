@@ -40,4 +40,16 @@ export class OrdersController {
     delete(@Param('id') id:string){
         return this.ordersService.remove(id)
     }
+
+    @Put(':oid/bind/:pid')
+    @HttpCode(HttpStatus.OK)
+    bindOrderToProject(@Param('oid') orderId:string, @Param('pid') projectId:string){
+        return this.ordersService.bind(orderId, projectId)
+    }
+
+    @Put(':oid/unbind/:pid')
+    @HttpCode(HttpStatus.OK)
+    onbindOrderAtProject(@Param('oid') orderId:string, @Param('pid') projectId:string){
+        return this.ordersService.unbind(orderId, projectId)
+    }
 }

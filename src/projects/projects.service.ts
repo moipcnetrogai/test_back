@@ -21,9 +21,9 @@ export class ProjectsService {
     async findOne(id: string): Promise<Project> {
         return this.projectsRepository.findOne({
             where: {
-                id,
-            },
-        });
+                id
+            }
+        })
     }
 
     async findAll(): Promise<Project[]> {
@@ -33,7 +33,7 @@ export class ProjectsService {
     async findOneWhisOrders(id: string): Promise<Project> {
         return this.projectsRepository.findOne({
             where: {
-                id,
+                id
             },
             include: {
                 model: Order,
@@ -41,22 +41,22 @@ export class ProjectsService {
                 where: {},
                 required: true,
             }
-        });
+        })
     }
 
     async update(id: string, projectDto: UpdateProjectDto) {
         const projectToUpdate = this.projectsRepository.findOne({
             where: {
-                id,
-            },
-        });
+                id
+            }
+        })
         return (await projectToUpdate).update(id, projectDto)
     }
 
     async remove(id: string): Promise<void> {
         const projectToDelete = this.projectsRepository.findOne({
             where: {
-                id,
+                id
             },
             include: {
                 model: Order,
@@ -64,17 +64,17 @@ export class ProjectsService {
                 where: {},
                 required: true,
             }
-        });
+        })
         const ordersData = this.ordersRepository.findAll({
             where: {
-                projectId: id,
-            },
+                projectId: id
+            }
         });
-        (await ordersData).forEach((order)=>{
+        (await ordersData).forEach((order) => {
             order.update({
                 projectId: null
             })
-        });
+        })
         return (await projectToDelete).destroy()
     }
 }

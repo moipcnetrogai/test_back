@@ -12,24 +12,24 @@ export class OrdersService {
     async create(orderDto: CreateOrderDto): Promise<Order> {
         return await this.ordersRepository.create<Order>(
             {
-                ...orderDto,
-            });
+                ...orderDto
+            })
     }
 
     async findUnAttached(): Promise<Order[]> {
         return this.ordersRepository.findAll({
             where: {
-                projectId: null,
+                projectId: null
             }
-        });
+        })
     }
 
     async findOne(id: string): Promise<Order> {
         return this.ordersRepository.findOne({
             where: {
-                id,
-            },
-        });
+                id
+            }
+        })
     }
 
     async update(id: string, orderDto: UpdateOrderDto) {
@@ -44,9 +44,31 @@ export class OrdersService {
     async remove(id: string): Promise<void> {
         const orderToDelete = this.ordersRepository.findOne({
             where: {
-                id,
-            },
-        });
+                id
+            }
+        })
         return (await orderToDelete).destroy()
+    }
+
+    async bind(orderId: string, projectId: string) {
+        const orderToBind = this.ordersRepository.findOne({
+            where: {
+                orderId
+            }
+        })
+        return (await orderToBind).update({
+            projectId: projectId
+        })
+    }
+
+    async unbind(orderId: string, projectId: string) {
+        const orderToUnbind = this.ordersRepository.findOne({
+            where: {
+                orderId
+            }
+        })
+        return (await orderToUnbind).update({
+            projectId: null
+        })
     }
 }
